@@ -3,29 +3,30 @@ name: Python CI
 on:
   push:
     branches:
-      - main  # main branch'ine yapılan push işlemleri tetikler
+      - main
   pull_request:
     branches:
-      - main  # main branch'ine yapılan pull request'lerde tetiklenir
+      - main
 
 jobs:
   test:
-    runs-on: ubuntu-latest  # Ubuntu ortamında çalışacak
+    runs-on: ubuntu-latest
 
     steps:
     - name: Check out the repository
-      uses: actions/checkout@v3  # GitHub Actions repo'yu checkout alacak
+      uses: actions/checkout@v3
 
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.8'  # Python 3.8 kullanıyoruz, istediğiniz sürümü belirtebilirsiniz
+        python-version: '3.8'
 
-    - name: Install dependencies
+    - name: Install dependencies (optional, if no requirements.txt)
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt  # Eğer gereksinimleriniz varsa buraya ekleyebilirsiniz.
+        # requirements.txt dosyası yoksa bu adımı kaldırıyoruz
+        # pip install -r requirements.txt
 
     - name: Run tests
       run: |
-        python -m unittest discover  # unittest ile tüm testleri çalıştır
+        python -m unittest discover
